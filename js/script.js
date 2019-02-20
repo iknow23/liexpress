@@ -35,6 +35,8 @@ window.addEventListener('DOMContentLoaded', function() {
 
             showConfirm();
 
+            calcGoods();
+
             removeBtn.classList.add('goods__item-remove');
             removeBtn.innerHTML = '&times';
             item.appendChild(removeBtn);
@@ -75,5 +77,11 @@ window.addEventListener('DOMContentLoaded', function() {
                 confirm.style.opacity = '.' + counter;
             }
         };
+    };
+
+    //  калькулятор в корзине
+    function calcGoods() {
+        const items = cartWrapper.querySelectorAll('.goods__item');
+        badge.textContent = items.length + 1;
     };
 });
