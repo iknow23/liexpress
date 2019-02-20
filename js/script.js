@@ -43,4 +43,17 @@ window.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    //  обрезаю заголовки
+    var sliceTitle = function() {
+        titles.forEach(function(item) {
+            if (item.textContent.length < 70) {
+                return;
+            } else {
+                const str = item.textContent.slice(0, 71) + '...';
+                item.textContent = str;
+            }
+        });
+    };
+    sliceTitle();
 });
