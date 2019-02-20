@@ -35,7 +35,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
             showConfirm();
 
-            calcGoods();
+            calcGoods(1);
 
             removeBtn.classList.add('goods__item-remove');
             removeBtn.innerHTML = '&times';
@@ -45,6 +45,9 @@ window.addEventListener('DOMContentLoaded', function() {
             if (empty) {
                 empty.remove();
             }
+
+            calcTotal();
+            removeFromCart();
         });
     });
 
@@ -80,8 +83,29 @@ window.addEventListener('DOMContentLoaded', function() {
     };
 
     //  калькулятор в корзине
-    function calcGoods() {
+    function calcGoods(i) {
         const items = cartWrapper.querySelectorAll('.goods__item');
-        badge.textContent = items.length + 1;
+        badge.textContent = items.length + i;
+    };
+
+    function calcTotal() {
+        const prices = document.querySelectorAll('.cart__wrapper > .goods__item > .goods__price > span');
+        let total = 0;
+        prices.forEach(function(item) {
+            total += +item.textContent;
+        });
+        totalCost.textContent = total;
+    };
+
+    //  удаление товаров из корзины
+    function removeFromCart() {
+        const removeBtn = cartWrapper.querySelectorAll('.goods__item-remove');
+        removeBtn.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                btn.parentElement.remove();
+                calcGoods(0);
+                calcTotal();
+            });
+        });
     };
 });
