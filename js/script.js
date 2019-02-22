@@ -43,7 +43,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
             cartWrapper.appendChild(item);
             if (empty) {
-                empty.remove();
+                empty.style.display = 'none';
             }
 
             calcTotal();
@@ -109,3 +109,32 @@ window.addEventListener('DOMContentLoaded', function() {
         });
     };
 });
+
+const loadContent = (url) => {
+    fetch(url)  //обещание
+        .then(response => response.json())  //обещание
+        .then(json => createElement(json.goods));
+}
+
+function createElement(arr) {
+    const goodsWrapper = document.querySelector('.goods__wrapper');
+
+    arr.forEach(function(item) {
+        let card = document.createElement('div');
+        card.classList.add('goods__item');
+        card.innerHTML = `
+            <img class="goods__img" src="${item.url}" alt="phone">
+            <div class="goods__colors">Доступно цветов: 4</div>
+            <div class="goods__title">
+                ${item.title}
+            </div>
+            <div class="goods__price">
+                <span>${item.price}</span> руб/шт
+            </div>
+            <button class="goods__btn">Добавить в корзину</button>
+        `;
+        goodsWrapper.appendChild(card);
+    });
+}
+
+loadContent('js/db.json');
